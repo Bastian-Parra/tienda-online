@@ -1,12 +1,16 @@
 import express from 'express';
 import bodyParser from 'body-parser'
 import DBConnection from './config/database.js';
+import compradorRoutes from './routes/compradorRoutes.js';
 
 const app = express();
 
 app.use(bodyParser.json()); // esto es para que podamos utilizar solicitudes tipo JSON
 
 const PORT = process.env.PORT || 3000; // puerto en el que vamos a ejecutar el server de express (el process.env.PORT es que lee las variables de entorno y busca un puerto disponible)
+
+// Ruta para compradores
+app.use('/', compradorRoutes);
 
 // si una ruta no es encontrada podemos hacer que haya un mensaje por defecto
 app.use((req, res) => {

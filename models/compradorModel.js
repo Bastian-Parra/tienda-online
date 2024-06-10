@@ -21,4 +21,4 @@ const Comprador = DBConnection.define("Comprador", {
     }
 )
 
-export default Comprador
+export default Comprador;
