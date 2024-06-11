@@ -5,6 +5,7 @@ import DBConnection from './config/database.js';
 // rutas
 import RouterComprador from './routes/compradorRoutes.js'
 import RouterProductos from './routes/productoRoutes.js'
+import RoutertipoProducto from './routes/tipoProductoRoutes.js';
 
 
 const app = express();
@@ -28,6 +29,7 @@ app.use((error, req, res, next) => {
 // ==== uso de rutas ====
 app.use('/compradores', RouterComprador)
 app.use('/productos', RouterProductos)
+app.use('/tipoProductos', RoutertipoProducto)
 // ======================
 
 // se sincronizan los modelos de sequelize con la base de datos y luego se inicia el servidor
