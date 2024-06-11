@@ -4,8 +4,7 @@ import DBConnection from './config/database.js';
 
 // rutas
 import RouterProductos from './routes/productoRoutes.js'
-import tipoProductoRoutes from './routes/tipoProductoRoutes.js';
-
+import RoutertipoProducto from './routes/tipoProductoRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000; // puerto en el que vamos a ejecutar el server de express (el process.env.PORT es que lee las variables de entorno y busca un puerto disponible)
@@ -17,9 +16,6 @@ app.set('views', './views') // configuramos el directorio para las vistas
 app.use(bodyParser.json()); // esto es para que podamos utilizar solicitudes tipo JSON
 app.use(bodyParser.urlencoded({ extended: true })); //)
 
-// Ruta para tipos de producto
-app.use('/api/tiposProducto', tipoProductoRoutes);
-
 // si una ruta no es encontrada podemos hacer que haya un mensaje por defecto
 
 // manejamos cualquier posible error que de el servidor creando un middleware (basicamente es algo que se ejecuta cuando ocurre un evento de error del sv)
@@ -30,6 +26,7 @@ app.use((error, req, res, next) => {
 
 // ==== uso de rutas ====
 app.use('/productos', RouterProductos)
+app.use('/tipoProductos', RoutertipoProducto)
 // ======================
 
 // se sincronizan los modelos de sequelize con la base de datos y luego se inicia el servidor
