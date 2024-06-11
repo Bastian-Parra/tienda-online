@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import DBConnection from "../config/database";
+import DBConnection from "../config/database.js";
 
 
 const Comprador = DBConnection.define("Comprador", {
@@ -21,4 +21,4 @@ const Comprador = DBConnection.define("Comprador", {
     }
 )
 
-export default Comprador
+export default Comprador;

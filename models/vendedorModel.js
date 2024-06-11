@@ -1,4 +1,4 @@
-import DBConnection from "../config/database";
+import DBConnection from "../config/database.js";
 import { DataTypes } from "sequelize";
 
 const Vendedor = DBConnection.define("Vendedor", {
