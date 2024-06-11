@@ -3,7 +3,9 @@ import bodyParser from 'body-parser'
 import DBConnection from './config/database.js';
 
 // rutas
+import RouterComprador from './routes/compradorRoutes.js'
 import RouterProductos from './routes/productoRoutes.js'
+
 
 const app = express();
 const PORT = process.env.PORT || 3000; // puerto en el que vamos a ejecutar el server de express (el process.env.PORT es que lee las variables de entorno y busca un puerto disponible)
@@ -24,6 +26,7 @@ app.use((error, req, res, next) => {
 })
 
 // ==== uso de rutas ====
+app.use('/compradores', RouterComprador)
 app.use('/productos', RouterProductos)
 // ======================
 
