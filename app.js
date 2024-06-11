@@ -2,6 +2,8 @@ import express from 'express';
 import bodyParser from 'body-parser'
 import DBConnection from './config/database.js';
 import compradorRoutes from './routes/compradorRoutes.js';
+import tipoProductoRoutes from './routes/tipoProductoRoutes.js';
+
 
 const app = express();
 
@@ -11,6 +13,9 @@ const PORT = process.env.PORT || 3000; // puerto en el que vamos a ejecutar el s
 
 // Ruta para compradores
 app.use('/', compradorRoutes);
+
+// Ruta para tipos de producto
+app.use('/api/tiposProducto', tipoProductoRoutes);
 
 // si una ruta no es encontrada podemos hacer que haya un mensaje por defecto
 app.use((req, res) => {
