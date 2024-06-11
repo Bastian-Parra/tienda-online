@@ -1,14 +1,14 @@
 import { DataTypes } from "sequelize";
-import DBConnection from "../config/database";
-import Vendedor from "./vendedorController";
-import Comprador from "./compradorController";
-import TipoProducto from "./tipoProductoController";
+import DBConnection from "../config/database.js";
+import Vendedor from "./vendedorModel.js";
+import Comprador from "./compradorModel.js";
+import TipoProducto from "./tipoProductoModel.js";
 
 const Producto = DBConnection.define("Producto", {
     numeroVendedor: {
         type: DataTypes.INTEGER,
+        primaryKey: true,
         allowNull: false,
-        autoIncrement: true,
         references: {
             model: Vendedor,
             key: "numeroVendedor"
@@ -16,6 +16,7 @@ const Producto = DBConnection.define("Producto", {
     },
     idComprador: {
         type: DataTypes.INTEGER,
+        primaryKey: true,
         allowNull: false,
         references: {
             model: Comprador,
@@ -25,6 +26,7 @@ const Producto = DBConnection.define("Producto", {
     idTipoProducto: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
         references: {
             model: TipoProducto,
             key: "idTipoProducto"

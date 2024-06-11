@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Lista de Productos</title>
+</head>
+<body>
+    <h1>Lista de Productos</h1>
+    <ul>
+        <% productos.forEach(producto => { %>
+            <li>
+                <%= producto.Tipoproducto.descripcionProducto %>%>
+                <a href="/productos/obtenerProducto/<%= producto.idTipoProducto %>">Ver detalles</a>
+            </li>
+        <% }) %>
+    </ul>
+    <a href="/productos/mostrarFormularioCrear">Crear Producto</a>
+</body>
+</html>
