@@ -1,61 +1,68 @@
-import {
-    obtenerCompradoresService,
-    crearCompradorService,
-    obtenerCompradorPorIdService,
-    actualizarCompradorService,
-    eliminarCompradorService
-} from '../services/compradorService.js';
+import CompradorService from "../services/compradorService.js";
+import TipoProducto from "../models/tipoProductoModel.js"
 
-export const crearComprador = async (req, res) => {
-    try {
-        const comprador = await crearCompradorService(req.body);
-        res.status(201).json(comprador);
-    } catch (error) {
-        res.status(500).json({ message: "Error al crear el comprador" });
-        console.log("ERROR! ", error);
-    }
-}
-
-export const obtenerCompradores = async (req, res) => {
-    try {
-        const compradores = await obtenerCompradoresService();
-        res.status(200).json(compradores);
-    } catch (error) {
-        res.status(500).json({ message: "Error al obtener los compradores" });
-        console.log("ERROR! ", error);
-    }
-}
-
-export const obtenerCompradorPorId = async (req, res) => {
-    try {
-        const comprador = await obtenerCompradorPorIdService(req.params.id);
-        if (comprador) {
-            res.status(200).json(comprador);
-        } else {
-            res.status(404).json({ message: "Comprador no encontrado" });
+const CompradorController = {
+   async obtenerCompradores(req, res) {
+        try {
+            const compradores = await CompradorService.obtenerCompradores()
+            res.render('comprador/lista', {compradores})
+        } catch (error) {
+            res.status(500).json({ error: error.message })
         }
+   },
+
+   async crearNuevoComprador(req, res) {
+
+    const nombreComprador = req.body
+
+        try {
+            await CompradorService.crearComprador(nombreComprador)
+            res.redirect('/comprador/mostrarFormularioCrear?message=Comprador creado con éxito&type=success');
+        } catch (error) {
+            res.redirect(`/comprador/mostrarFormularioCrear?message=${encodeURIComponent(error.message)}&type=error`);
+        }
+   },
+
+   async obtenerComprador(req, res) {
+
+    const idComprador = req.params.id
+
+        try {
+            await CompradorService.obtenerUnComprador(idComprador)
+            res.status(200).json({message: "Comprador creado con éxito"})
+        } catch (error) {
+            res.status(500).json({ error: error.message })
+        }
+   },
+
+   async actualizarComprador(req, res) {
+        try {
+            await CompradorService.actualizarComprador(req.params.id)
+            res.status(204).json({ mensaje: "Comprador actualizado" })
+        } catch (error) {
+            res.status(500).json({ error: error.message })
+        }
+   },
+
+   async eliminarComprador(req, res) {
+    try {
+        await CompradorService.eliminarComprador(req.params.id)
+        res.status(204).json({ mensaje: "Comprador eliminado" })
     } catch (error) {
-        res.status(500).json({ message: "Error al obtener el comprador" });
-        console.log("ERROR! ", error);
+        res.status(500).json({ error: error.message })
     }
+   },
+
+   async mostrarFormularioCrear(req, res) {
+    try {
+        const mensaje = req.query.message
+        const tipo = req.query.type
+        res.render('comprador/crear', { mensaje, tipo})
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+},
+
 }
 
-export const actualizarComprador = async (req, res) => {
-    try {
-        const comprador = await actualizarCompradorService(req.params.id, req.body);
-        res.status(200).json(comprador);
-    } catch (error) {
-        res.status(500).json({ message: "Error al actualizar el comprador" });
-        console.log("ERROR! ", error);
-    }
-}
-
-export const eliminarComprador = async (req, res) => {
-    try {
-        await eliminarCompradorService(req.params.id);
-        res.status(204).end();
-    } catch (error) {
-        res.status(500).json({ message: "Error al eliminar el comprador" });
-        console.log("ERROR! ", error);
-    }
-}
+export default CompradorController
