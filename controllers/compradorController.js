@@ -1,3 +1,4 @@
+
 import CompradorService from "../services/compradorService.js";
 import TipoProducto from "../models/tipoProductoModel.js"
 

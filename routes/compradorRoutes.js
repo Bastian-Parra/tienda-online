@@ -10,4 +10,5 @@ router.put('/actualizarComprador/:id', CompradorController.actualizarComprador);
 router.delete('/eliminarComprador/:id', CompradorController.eliminarComprador);
 router.get('/mostrarFormularioCrear', CompradorController.mostrarFormularioCrear)
 
+
 export default router;
