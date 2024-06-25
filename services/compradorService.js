@@ -1,33 +1,70 @@
 import Comprador from "../models/compradorModel.js";
 
-const compradorService = {
-    obtenerCompradores: async () => {
-        return await Comprador.findAll();
-    },
-
-    crearComprador: async (data) => {
-        return await Comprador.create(data);
-    },
-
-    obtenerCompradorPorId: async (id) => {
-        return await Comprador.findByPk(id);
-    },
-
-    actualizarComprador: async (id, data) => {
-        const comprador = await Comprador.findByPk(id);
-        if (comprador) {
-            return await comprador.update(data);
+const CompradorService = {
+    
+    async obtenerCompradores() {
+        try {
+            const compradores = await Comprador.findAll();
+            return compradores
+        } catch (error) {
+            console.error("Error al obtener los compradores", error.message)
+            throw new Error("Error al obtener los compradores")
         }
-        throw new Error('Comprador no encontrado');
     },
 
-    eliminarComprador: async (id) => {
-        const comprador = await Comprador.findByPk(id);
-        if (comprador) {
-            return await comprador.destroy();
+    async obtenerUnComprador(idComprador) {
+        try {
+            const comprador = await Comprador.findByPk(idComprador)
+            return comprador
+        } catch (error) {
+            console.error("Error al obtener el comprador", error.message)
+            throw new Error("Error al obtener el comprador")
         }
-        throw new Error('Comprador no encontrado');
+    },
+
+    async crearComprador(nombreComprador) {
+        try {
+            const nuevoComprador = await Comprador.create(nombreComprador)
+            return nuevoComprador
+        } catch (error) {
+            throw new Error("Error al crear el comprador")
+        }
+    },
+
+    async actualizarComprador(idComprador, nombreComprador) {
+        try {
+            const comprador = await Comprador.findOne(
+                {
+                    where: { idComprador: idComprador },
+                    include: [
+                        {
+                            model: Comprador,
+                            attributes: ["nombreComprador"]
+                        }
+                    ]
+                }
+            )
+            await comprador.update(nombreComprador)
+
+        } catch (error) {
+            throw new Error("")
+        }
+    },
+
+    async eliminarComprador(idComprador) {
+        try {
+            const comprador = await Comprador.findByPk(idComprador);
+            
+            if(!comprador) {
+                throw new Error("Comprador no encontrado")
+            }
+
+            comprador.destroy()
+
+        } catch (error) {
+            throw new Error('Comprador no encontrado');
+        }
     }
-};
+}
 
-export default compradorService;
+export default CompradorService

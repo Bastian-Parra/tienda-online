@@ -8,4 +8,5 @@ router.get('/obtenerProductos', ProductoController.obtenerProductos)
 router.get('/obtenerProducto/:id', ProductoController.obtenerProducto)
 router.get('/mostrarFormularioCrear', ProductoController.mostrarFormularioCrear)
 router.post('/crearProducto', ProductoController.crearNuevoProducto)
+router.delete('/eliminarProducto/:id', ProductoController.eliminarProducto)
 export default router

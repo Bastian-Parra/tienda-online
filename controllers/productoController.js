@@ -26,17 +26,18 @@ const ProductoController = {
             }
 
             // Crear el nuevo producto
-            const nuevoProducto = await ProductoService.crearProducto(numeroVendedor, precioCompra, tipoProducto.idTipoProducto, idComprador);
-            res.status(201).json({ message: "Producto creado con éxito", nuevoProducto });
+            await ProductoService.crearProducto(numeroVendedor, precioCompra, tipoProducto.idTipoProducto, idComprador);
+            res.redirect('/productos/mostrarFormularioCrear?message=Producto creado con éxito&type=success');
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            res.redirect(`/productos/mostrarFormularioCrear?message=${encodeURIComponent(error.message)}&type=error`);
         }
     },
 
     async mostrarFormularioCrear(req, res) {
         try {
-            const tiposProducto = await TipoProducto.findAll()
-            res.render('productos/crear', {tiposProducto})
+            const tipo = req.query.type
+            const mensaje = req.query.message
+            res.render('productos/crear', {tipo, mensaje})
         } catch (error) {
             res.status(500).json({message: error.message})
         }

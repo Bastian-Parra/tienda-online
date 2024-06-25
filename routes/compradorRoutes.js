@@ -1,12 +1,14 @@
 import { Router } from 'express';
-import compradorController from '../controllers/compradorController.js';
+import CompradorController from '../controllers/compradorController.js';
 
 const router = Router();
 
-router.post('/compradores', compradorController.crearComprador);
-router.get('/compradores', compradorController.obtenerCompradores);
-router.get('/compradores/:id', compradorController.obtenerCompradorPorId);
-router.put('/compradores/:id', compradorController.actualizarComprador);
-router.delete('/compradores/:id', compradorController.eliminarComprador);
+router.get('/obtenerCompradores', CompradorController.obtenerCompradores);
+router.get('/obtenerUnComprador/:id', CompradorController.obtenerComprador);
+router.post('/crearComprador', CompradorController.crearNuevoComprador);
+router.put('/actualizarComprador/:id', CompradorController.actualizarComprador);
+router.delete('/eliminarComprador/:id', CompradorController.eliminarComprador);
+router.get('/mostrarFormularioCrear', CompradorController.mostrarFormularioCrear)
+
 
 export default router;

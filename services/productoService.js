@@ -2,6 +2,7 @@ import Producto from "../models/productoModel.js"
 import Vendedor from "../models/vendedorModel.js"
 import Comprador from "../models/compradorModel.js"
 import TipoProducto from "../models/tipoProductoModel.js"
+import DBConnection from "../config/database.js"
 // para el servicio, creamos un objeto donde manejamos las funciones del servicio
 const ProductoService = {
 
@@ -108,7 +109,6 @@ const ProductoService = {
             throw new Error("Error al eliminar el producto")
         }
     }
-
 }
 
 export default ProductoService
